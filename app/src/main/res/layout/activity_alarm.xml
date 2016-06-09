@@ -2,43 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_height="wrap_content"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
     tools:context=".AlarmActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/imageView"
+        android:src="@drawable/alarm_title"
+        android:scaleType="fitXY"
+        android:layout_above="@+id/button5"
+        android:layout_alignStart="@+id/button6"
         android:layout_alignParentTop="true"
-        android:src="@drawable/alarm_text"
-        android:layout_alignParentStart="true"
-        android:scaleType="fitCenter"
-        android:layout_above="@+id/button5" />
+        android:padding="0dp"
+        android:layout_alignEnd="@+id/button6" />
 
     <ImageButton
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:text="stop"
         android:id="@+id/button5"
-        android:src="@drawable/alarm1"
+        android:src="@drawable/alarm_nope_shade"
         android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
         android:layout_above="@+id/button6"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent" />
+        android:adjustViewBounds="false"
+        android:baselineAlignBottom="false" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:text="Child not with me"
         android:id="@+id/button6"
-        android:src="@drawable/hash_butten"
+        android:src="@drawable/alarm_mute_shade"
         android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="@android:color/transparent" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
