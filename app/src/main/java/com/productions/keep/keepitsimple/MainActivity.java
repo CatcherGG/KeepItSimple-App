@@ -39,6 +39,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.DetectedActivity;
+import com.productions.keep.keepitsimple.com.productions.keepitsimple.alarm.AlarmActivity;
 
 import java.util.ArrayList;
 
@@ -134,6 +135,10 @@ public class MainActivity extends ActionBarActivity implements
 
         // Kick off the request to build GoogleApiClient.
         buildGoogleApiClient();
+
+        Intent intent = new Intent(this, AlarmActivity.class);
+        finish();
+        startActivity(intent);
     }
 
     /**
@@ -356,6 +361,7 @@ public class MainActivity extends ActionBarActivity implements
         public void onReceive(Context context, Intent intent) {
             ArrayList<DetectedActivity> updatedActivities =
                     intent.getParcelableArrayListExtra(Constants.ACTIVITY_EXTRA);
+
             updateDetectedActivitiesList(updatedActivities);
         }
     }
