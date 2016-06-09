@@ -1,6 +1,7 @@
 package com.productions.keep.keepitsimple;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -12,8 +13,10 @@ import android.transition.Explode;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class AlarmActivity extends Activity {
@@ -44,11 +47,11 @@ public class AlarmActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("AlarmActivity","onCreate");
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        Transition reenterTrans = new Slide();
-        getWindow().setReenterTransition(reenterTrans);
-        Transition enterTrans = new Explode();
-        getWindow().setEnterTransition(enterTrans);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_alarm);
         stopAlarm = (Button)findViewById(R.id.button5);
         childNotWithMe = (Button)findViewById(R.id.button6);
@@ -66,7 +69,9 @@ public class AlarmActivity extends Activity {
                 stopAlarm();
                 Log.d("AlarmActivity","clicked on child not with me");
                 Intent intent = new Intent(AlarmActivity.this,WithoutChild.class);
-                startActivity(intent);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                        AlarmActivity.this);
+                startActivity(intent,options.toBundle());
                 finish();
             }
         });
@@ -74,7 +79,9 @@ public class AlarmActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        ringtone.stop();
+        if(ringtone != null) {
+            ringtone.stop();
+        }
         super.onDestroy();
     }
 
