@@ -9,19 +9,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AlarmActivity">
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/alarm_text"
+        android:layout_alignParentStart="true"
+        android:scaleType="fitCenter"
+        android:layout_above="@+id/button5" />
+
+    <ImageButton
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:text="stop"
         android:id="@+id/button5"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:src="@drawable/alarm1"
+        android:scaleType="fitCenter"
+        android:layout_above="@+id/button6"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:text="Child not with me"
         android:id="@+id/button6"
-        android:layout_alignTop="@+id/button5"
-        android:layout_alignParentEnd="true" />
+        android:src="@drawable/hash_butten"
+        android:scaleType="fitCenter"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/transparent" />
+
 </RelativeLayout>
