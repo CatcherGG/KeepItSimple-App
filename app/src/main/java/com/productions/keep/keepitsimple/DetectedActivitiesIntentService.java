@@ -91,7 +91,7 @@ public class DetectedActivitiesIntentService extends IntentService {
             );
         }
 
-        if (result.getMostProbableActivity().getType() == DetectedActivity.STILL){
+        if (result.getMostProbableActivity().getType() == DetectedActivity.WALKING){
             Intent intent_1 = new Intent(this, AlarmActivity.class);
             intent_1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent_1);
