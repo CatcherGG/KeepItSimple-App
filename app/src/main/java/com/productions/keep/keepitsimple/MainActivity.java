@@ -39,7 +39,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.DetectedActivity;
-import com.productions.keep.keepitsimple.com.productions.keepitsimple.alarm.AlarmActivity;
 
 import java.util.ArrayList;
 

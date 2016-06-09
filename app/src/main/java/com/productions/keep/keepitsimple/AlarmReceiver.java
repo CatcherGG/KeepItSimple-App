@@ -5,6 +5,8 @@ package com.productions.keep.keepitsimple;
  */
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -23,18 +25,19 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         //this will sound the alarm tone
         //this will sound the alarm once, if you wish to
         //raise alarm in loop continuously then use MediaPlayer and setLooping(true)
-        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        /*Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         if (alarmUri == null) {
             alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
         Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-        ringtone.play();
+        ringtone.play();*/
 
 
         //this will send a notification message
-        ComponentName comp = new ComponentName(context.getPackageName(),
+        /*ComponentName comp = new ComponentName(context.getPackageName(),
                 DetectedActivitiesIntentService.class.getName());
         startWakefulService(context, (intent.setComponent(comp)));
-        setResultCode(Activity.RESULT_OK);
+        setResultCode(Activity.RESULT_OK);*/
     }
+
 }
