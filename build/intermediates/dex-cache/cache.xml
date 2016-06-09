@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Guy Gonen\Documents\GitHub\KeepItSimple\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="C:\Users\Guy Gonen\Documents\GitHub\KeepItSimple-App\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.2"
-        sha1="5cdcd56288c337fd72802212ac08f00c7826dceb">
-        <dex dex="C:\Users\Guy Gonen\Documents\GitHub\KeepItSimple\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_fce3bffc5db9bd07cf47026e7c727c9031e25e0a\classes.dex" />
+        sha1="56f2b6b54375c057f53a639746cb88c6d85b6560">
+        <dex dex="C:\Users\Guy Gonen\Documents\GitHub\KeepItSimple-App\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_ba179d2ff205cf9974a043256dcd8c37d7a6236b\classes.dex" />
     </item>
 
 </items>
