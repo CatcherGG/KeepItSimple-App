@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Ringtone;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +26,7 @@ public class AlarmActivity extends Activity {
     private Ringtone ringtone;
     private Thread animationThread;
     private boolean runThread = true;
+    private Vibrator vibrator;
 
     public static AlarmActivity instance(){
         return inst;
@@ -95,6 +97,9 @@ public class AlarmActivity extends Activity {
             Intent myIntent = new Intent(this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
             alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
+            vibrator = (Vibrator) getApplicationContext().getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+            long[] pattern = {0,1000,500,1000,500,1000,500,1000,500,1000};
+            vibrator.vibrate(pattern,-1);
         }
         catch(Exception e){
             Log.e("AlarmActivity","failed to start alarm");
@@ -107,6 +112,8 @@ public class AlarmActivity extends Activity {
         try {
             alarmManager.cancel(pendingIntent);
             ringtone.stop();
+            vibrator.cancel();
+
         }
         catch(Exception e){
             Log.e("AlarmActivity","failed to close the alarm");
