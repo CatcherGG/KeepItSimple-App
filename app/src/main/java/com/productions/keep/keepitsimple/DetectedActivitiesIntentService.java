@@ -60,7 +60,7 @@ public class DetectedActivitiesIntentService extends IntentService {
 
     public void stopDetectionForPeriod(long seconds){
         Log.d("DetectedService","stop for "+String.valueOf(seconds)+" seconds");
-        long sleep_timer = TimeUnit.MILLISECONDS.toSeconds(seconds);
+        long sleep_timer = seconds;
         long curr_time = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         DataHolder.getInstance().setSleepTimer(sleep_timer, curr_time);
     }

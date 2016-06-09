@@ -55,12 +55,10 @@ public class DataHolder {
     }
 
     public boolean is_timer_on(long curr_time){
-        if (timer_start_time == -1 || sleep_timer == -1 || curr_time - timer_start_time >= sleep_timer) {
-            this.sleep_timer = -1;
-            this.timer_start_time = -1;
+        if (timer_start_time == -1 || sleep_timer == -1) {
             return false;
         }
-        return true;
+        return curr_time - timer_start_time < sleep_timer;
     }
 
     private static final DataHolder holder = new DataHolder();
