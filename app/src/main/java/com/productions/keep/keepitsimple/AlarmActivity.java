@@ -34,7 +34,6 @@ public class AlarmActivity extends Activity {
     private DetectedActivitiesIntentService detectionService;
     private boolean mBounded;
     private AlertDialog dialog;
-    private AlertDialog.Builder dialogBuilder;
 
     public static AlarmActivity instance() {
         return inst;
@@ -98,7 +97,7 @@ public class AlarmActivity extends Activity {
         childNotWithMe = (ImageButton) findViewById(R.id.button6);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        dialogBuilder = createDialog();
+        dialog = createDialog();
 
         stopAlarm.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -123,7 +122,7 @@ public class AlarmActivity extends Activity {
                     childNotWithMe.setImageResource(R.drawable.alarm_mute_shade);
                     Log.d("AlarmActivity", "clicked on child not with me");
                     stopAlarm();
-                    dialog = dialogBuilder.show();
+                    dialog.show();
                     // Do what you want
                     return true;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -135,7 +134,7 @@ public class AlarmActivity extends Activity {
         });
     }
 
-    private AlertDialog.Builder createDialog(){
+    private AlertDialog createDialog(){
         LayoutInflater inflater = (LayoutInflater) getSystemService(getApplicationContext().LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.activity_other,
                 null, false);
@@ -240,7 +239,7 @@ public class AlarmActivity extends Activity {
             }
         });
 
-        return dialogBuilder;
+        return dialogBuilder.create();
     }
 
     @Override
