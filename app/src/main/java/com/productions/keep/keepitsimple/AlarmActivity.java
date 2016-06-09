@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -24,17 +25,13 @@ public class AlarmActivity extends Activity {
     private ImageButton stopAlarm;
     private ImageButton childNotWithMe;
     private static AlarmActivity inst;
-    private static int counter = 0;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    private Ringtone ringtone;
-    private Thread animationThread;
-    private boolean runThread = true;
+    private MediaPlayer mp;
     private Vibrator vibrator;
     private DetectedActivitiesIntentService detectionService;
     private boolean mBounded;
     private AlertDialog dialog;
-    private AlertDialog.Builder dialogBuilder;
 
     public static AlarmActivity instance() {
         return inst;
@@ -47,13 +44,13 @@ public class AlarmActivity extends Activity {
         Intent mIntent = new Intent(this, DetectedActivitiesIntentService.class);
         bindService(mIntent, mConnection, BIND_AUTO_CREATE);
         inst = this;
-        if (ringtone == null || !ringtone.isPlaying()) {
+        if (mp == null || !mp.isPlaying()) {
             startAlarm();
         }
     }
 
-    public void setRingtone(Ringtone rington) {
-        this.ringtone = rington;
+    public void setMediaPlayer(MediaPlayer mp) {
+        this.mp = mp;
     }
 
 
@@ -98,7 +95,7 @@ public class AlarmActivity extends Activity {
         childNotWithMe = (ImageButton) findViewById(R.id.button6);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        dialogBuilder = createDialog();
+        dialog = createDialog();
 
         stopAlarm.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -123,7 +120,7 @@ public class AlarmActivity extends Activity {
                     childNotWithMe.setImageResource(R.drawable.alarm_mute_shade);
                     Log.d("AlarmActivity", "clicked on child not with me");
                     stopAlarm();
-                    dialog = dialogBuilder.show();
+                    dialog.show();
                     // Do what you want
                     return true;
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -135,7 +132,7 @@ public class AlarmActivity extends Activity {
         });
     }
 
-    private AlertDialog.Builder createDialog(){
+    private AlertDialog createDialog(){
         LayoutInflater inflater = (LayoutInflater) getSystemService(getApplicationContext().LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.activity_other,
                 null, false);
@@ -240,15 +237,14 @@ public class AlarmActivity extends Activity {
             }
         });
 
-        return dialogBuilder;
+        return dialogBuilder.create();
     }
 
     @Override
     protected void onDestroy() {
-        if (ringtone != null) {
-            runThread = false;
-            ringtone.stop();
-            ringtone = null;
+        if (mp != null) {
+            mp.stop();
+            mp = null;
             vibrator = null;
         }
         super.onDestroy();
@@ -274,7 +270,7 @@ public class AlarmActivity extends Activity {
         Log.d("AlarmActivity", "clicked on stop the alarm");
         try {
             alarmManager.cancel(pendingIntent);
-            ringtone.stop();
+            mp.stop();
             vibrator.cancel();
 
         } catch (Exception e) {

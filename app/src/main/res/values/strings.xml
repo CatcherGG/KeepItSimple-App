@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KeepItSimple</string>
+    <string name="app_name">Sheep</string>
 
     <!-- Activity detection strings -->
     <string name="in_vehicle">In a vehicle</string>
