@@ -41,13 +41,11 @@ public class AlarmActivity extends Activity {
     public void onStart() {
         Log.d("AlarmActivity", "start");
         super.onStart();
-        if(inst==null) {
-            Intent mIntent = new Intent(this, DetectedActivitiesIntentService.class);
-            bindService(mIntent, mConnection, BIND_AUTO_CREATE);
-            inst = this;
-            if (mp == null || !mp.isPlaying()) {
-                startAlarm();
-            }
+        Intent mIntent = new Intent(this, DetectedActivitiesIntentService.class);
+        bindService(mIntent, mConnection, BIND_AUTO_CREATE);
+        inst = this;
+        if (mp == null || !mp.isPlaying()) {
+            startAlarm();
         }
     }
 
