@@ -5,6 +5,7 @@ import android.app.ActivityOptions;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -24,9 +25,12 @@ public class AlarmActivity extends Activity {
     private ImageButton stopAlarm;
     private ImageButton childNotWithMe;
     private static AlarmActivity inst;
+    private static int counter = 0;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private Ringtone ringtone;
+    private Thread animationThread;
+    private boolean runThread = true;
 
     public static AlarmActivity instance(){
         return inst;
@@ -37,6 +41,12 @@ public class AlarmActivity extends Activity {
         Log.d("AlarmActivity","start");
         super.onStart();
         inst = this;
+        counter++;
+        if (counter % 2 == 0) {
+            stopAlarm.setImageResource(R.drawable.alarm2);
+        } else {
+            stopAlarm.setImageResource(R.drawable.alarm1);
+        }
         startAlarm();
     }
 
@@ -70,9 +80,7 @@ public class AlarmActivity extends Activity {
                 stopAlarm();
                 Log.d("AlarmActivity","clicked on child not with me");
                 Intent intent = new Intent(AlarmActivity.this,WithoutChild.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                        AlarmActivity.this);
-                startActivity(intent,options.toBundle());
+                startActivity(intent);
                 finish();
             }
         });
@@ -81,6 +89,7 @@ public class AlarmActivity extends Activity {
     @Override
     protected void onDestroy() {
         if(ringtone != null) {
+            runThread = false;
             ringtone.stop();
         }
         super.onDestroy();
