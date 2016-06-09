@@ -23,9 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".com.productions.keepitsimple.alarm.AlarmActivity"
+            android:name=".AlarmActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,11 +37,9 @@
             android:name=".DetectedActivitiesIntentService"
             android:exported="false" />
 
-        <service
-            android:name=".com.productions.keepitsimple.alarm.AlarmService"
-            android:enabled="true" />
+        <receiver android:name=".AlarmReceiver" />
 
-        <receiver android:name=".com.productions.keepitsimple.alarm.AlarmReceiver" />
+        <activity android:name=".OtherActivity"></activity>
     </application>
 
 </manifest>
