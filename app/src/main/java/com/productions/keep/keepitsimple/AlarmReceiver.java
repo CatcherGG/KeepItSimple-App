@@ -33,7 +33,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
         Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
-        ringtone.play();
+        if(!ringtone.isPlaying()) {
+            ringtone.play();
+        }
 
         inst.setRingtone(ringtone);
         //this will send a notification message
