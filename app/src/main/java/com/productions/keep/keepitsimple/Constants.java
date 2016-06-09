@@ -29,6 +29,8 @@ public final class Constants {
     private Constants() {
     }
 
+    public static final int CACHING_SIZE = 7;
+
     public static final String PACKAGE_NAME = "com.google.android.gms.location.activityrecognition";
 
     public static final String BROADCAST_ACTION = PACKAGE_NAME + ".BROADCAST_ACTION";

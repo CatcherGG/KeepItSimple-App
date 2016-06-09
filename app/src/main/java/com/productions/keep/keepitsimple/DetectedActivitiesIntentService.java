@@ -27,6 +27,7 @@ import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  IntentService for handling incoming intents that are generated as a result of requesting
@@ -91,17 +92,70 @@ public class DetectedActivitiesIntentService extends IntentService {
             );
         }
 
-        if (result.getMostProbableActivity().getType() == DetectedActivity.WALKING || result.getMostProbableActivity().getType() == DetectedActivity.ON_FOOT ){
-            if (DataHolder.getInstance().getShouldAlert()) {
-                DataHolder.getInstance().setShouldAlert(false);
-                Intent intent_1 = new Intent(this, AlarmActivity.class);
-                intent_1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent_1);
-            }
+
+        handle_last_activity(result.getMostProbableActivity());
+        if (DataHolder.getInstance().getShouldAlert()) {
+            DataHolder.getInstance().clear_predictions();
+            DataHolder.getInstance().setShouldAlert(false);
+            DataHolder.getInstance().setIsVechicle(false);
+
+            Intent intent_1 = new Intent(this, AlarmActivity.class);
+            intent_1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent_1);
         }
 
         // Broadcast the list of detected activities.
         localIntent.putExtra(Constants.ACTIVITY_EXTRA, detectedActivities);
         LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
+    }
+
+
+    public void handle_last_activity(DetectedActivity latest_most_probable_activity){
+        DataHolder holder = DataHolder.getInstance();
+        List<Integer> predictions = holder.add_prediction(latest_most_probable_activity.getType());
+        Log.i(TAG, "Predictions: "+predictions);
+        // If i wasn't in Vechicle.
+        if (!holder.getIsVechicle()) {
+            int vechicle_count = countVechicle(predictions);
+            int count_walking = countWalkingOnFoot(predictions);
+            if (vechicle_count > Math.ceil(Constants.CACHING_SIZE / 2)
+                    && count_walking < Math.floor(Constants.CACHING_SIZE / 2)){
+                Log.i(TAG, "Setting vehicle to true.");
+                holder.setIsVechicle(true);
+            }
+        }
+
+        // If i was in the vehicle,
+        if (holder.getIsVechicle()) {
+            int vechicle_count = countVechicle(predictions);
+            int count_walking = countWalkingOnFoot(predictions);
+            if (vechicle_count < Math.floor(Constants.CACHING_SIZE / 2)
+                    && count_walking > Math.ceil(Constants.CACHING_SIZE / 2)){
+                Log.i(TAG, "Setting vehicle to false.");
+                holder.setShouldAlert(true);
+                holder.setIsVechicle(false);
+                DataHolder.getInstance().clear_predictions();
+            }
+        }
+    }
+
+    private int countVechicle(List<Integer> predictions) {
+        int count = 0;
+        for (int prediction_type : predictions) {
+            if (prediction_type == DetectedActivity.STILL){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int countWalkingOnFoot(List<Integer> predictions) {
+        int count = 0;
+        for (int prediction_type : predictions) {
+            if (prediction_type == DetectedActivity.WALKING || prediction_type == DetectedActivity.ON_FOOT){
+                count++;
+            }
+        }
+        return count;
     }
 }
