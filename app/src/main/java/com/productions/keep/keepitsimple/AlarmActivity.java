@@ -18,10 +18,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class AlarmActivity extends Activity {
-    private Button stopAlarm;
-    private Button childNotWithMe;
+    private ImageButton stopAlarm;
+    private ImageButton childNotWithMe;
     private static AlarmActivity inst;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
@@ -53,8 +54,8 @@ public class AlarmActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_alarm);
-        stopAlarm = (Button)findViewById(R.id.button5);
-        childNotWithMe = (Button)findViewById(R.id.button6);
+        stopAlarm = (ImageButton)findViewById(R.id.button5);
+        childNotWithMe = (ImageButton)findViewById(R.id.button6);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         stopAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
