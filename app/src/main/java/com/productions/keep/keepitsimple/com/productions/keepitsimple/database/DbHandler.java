@@ -1,19 +1,11 @@
 package com.productions.keep.keepitsimple.com.productions.keepitsimple.database;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * Created by Guy Gonen on 08/06/2016.
  */
-public class DbHandler extends SQLiteOpenHelper implements Runnable {
+public class DbHandler  { //extends SQLiteOpenHelper implements Runnable
 
     private static final String DATABASE_NAME = "capturedEvents";
     private static final int DATABASE_VERSION = 27;
@@ -28,7 +20,7 @@ public class DbHandler extends SQLiteOpenHelper implements Runnable {
 
     private BlockingQueue<String> queue;
     private Thread thread;
-
+/*
 
     public DbHandler(Context context) {
         this(context, null, null, 0);
@@ -113,7 +105,7 @@ public class DbHandler extends SQLiteOpenHelper implements Runnable {
     }
 
     public List<Jsonable> selectKeyboardEvents(String selection, String[] selectionArgs, String limit) {
-        /*SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         String[] projection = null;
         String sortOrder = KeyEventTable.DOWN_TIME + " ASC";
         Cursor cursor = db.query(
@@ -132,14 +124,14 @@ public class DbHandler extends SQLiteOpenHelper implements Runnable {
             result.add(new KeyEventTable().cursorToEventObject(cursor,0));
             cursor.moveToNext();
         }
-        cursor.close();*/
+        cursor.close();
         return result;
     }
-
-
+*/
+    /*
     private int delete(String tableName, String selection, String[] selectArgs) {
         return getReadableDatabase().delete(tableName, selection, selectArgs);
-    }*/
+    }
 
     public void insert(Class clz, Jsonable event) {
         try {
@@ -147,9 +139,8 @@ public class DbHandler extends SQLiteOpenHelper implements Runnable {
         } catch (InterruptedException e) {
             Log.e(TAG, "exception in inserting an event to the db queue ", e);
         }
-    }
+    }*/
 
-    @Override
     public void run() {
         while (true) {
             break;
