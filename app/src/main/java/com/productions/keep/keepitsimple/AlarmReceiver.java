@@ -66,17 +66,14 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
             mMediaPlayer.setLooping(false);
-            //mMediaPlayer.prepare();
+            try {
+                mMediaPlayer.prepare();
+            }catch (Exception e){
+            }
             mMediaPlayer.start();
         }
 
-        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
         Vibrator vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
-        if(!ringtone.isPlaying()) {
-            ringtone.play();
-            long[] pattern = {0,1000,500,1000,500,1000,500,1000,500,1000};
-            vibrator.vibrate(pattern,-1);
-        }
         inst.setVibrator(vibrator);
         inst.setMediaPlayer(mMediaPlayer);
 
