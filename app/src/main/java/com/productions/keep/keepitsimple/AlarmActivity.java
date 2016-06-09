@@ -8,8 +8,12 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 public class AlarmActivity extends Activity {
@@ -32,23 +36,28 @@ public class AlarmActivity extends Activity {
         startAlarm();
     }
 
+    public void setRingtone(Ringtone rington){
+        this.ringtone = rington;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("AlarmActivity","onCreate");
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        Transition reenterTrans = new Slide();
+        getWindow().setReenterTransition(reenterTrans);
+        Transition enterTrans = new Explode();
+        getWindow().setEnterTransition(enterTrans);
         setContentView(R.layout.activity_alarm);
         stopAlarm = (Button)findViewById(R.id.button5);
         childNotWithMe = (Button)findViewById(R.id.button6);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        if (alarmUri == null) {
-            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        }
-        ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
         stopAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stopAlarm();
+                finish();
             }
         });
         childNotWithMe.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +67,7 @@ public class AlarmActivity extends Activity {
                 Log.d("AlarmActivity","clicked on child not with me");
                 Intent intent = new Intent(AlarmActivity.this,WithoutChild.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -74,7 +84,6 @@ public class AlarmActivity extends Activity {
             Intent myIntent = new Intent(this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
             alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
-            ringtone.play();
         }
         catch(Exception e){
             Log.e("AlarmActivity","failed to start alarm");

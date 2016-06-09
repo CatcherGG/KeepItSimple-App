@@ -62,6 +62,7 @@ public class WithoutChild extends Activity {
 
     private void sendStopForTime(long seconds) {
         detectionService.stopDetectionForPeriod(seconds);
+        finish();
     }
 
     @Override
