@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Guy Gonen\Documents\GitHub\KeepItSimple\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="5cdcd56288c337fd72802212ac08f00c7826dceb">
+        <dex dex="C:\Users\Guy Gonen\Documents\GitHub\KeepItSimple\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_fce3bffc5db9bd07cf47026e7c727c9031e25e0a\classes.dex" />
+    </item>
+
+</items>
