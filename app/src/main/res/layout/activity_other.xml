@@ -9,11 +9,68 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".WithoutChild">
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:text="Silence Hour"
         android:id="@+id/button7"
-        android:layout_centerVertical="true"
+        android:src="@drawable/hash_logo"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/imageButton5"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton"
+        android:layout_below="@+id/button7"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/hash1"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton2"
+        android:src="@drawable/hash1"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/imageButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton3"
+        android:src="@drawable/hash1"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/imageButton2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton4"
+        android:src="@drawable/hash1"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:layout_below="@+id/imageButton3"
         android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/imageButton5"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/hash_text"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent" />
+
 </RelativeLayout>

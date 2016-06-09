@@ -15,13 +15,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.productions.keep.keepitsimple.DetectedActivitiesIntentService.LocalBinder;
 
 public class WithoutChild extends Activity {
 
-    private Button stopForTime;
+    private ImageButton stopForTime;
     private DetectedActivitiesIntentService detectionService;
     private boolean mBounded;
 
@@ -35,7 +36,7 @@ public class WithoutChild extends Activity {
 
         setContentView(R.layout.activity_other);
         Log.d("WithoutChild", "started");
-        stopForTime = (Button)findViewById(R.id.button7);
+        stopForTime = (ImageButton)findViewById(R.id.button7);
         stopForTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
