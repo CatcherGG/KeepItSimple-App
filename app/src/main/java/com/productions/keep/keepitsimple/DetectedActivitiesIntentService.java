@@ -28,6 +28,7 @@ import com.google.android.gms.location.DetectedActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  *  IntentService for handling incoming intents that are generated as a result of requesting
@@ -59,7 +60,9 @@ public class DetectedActivitiesIntentService extends IntentService {
 
     public void stopDetectionForPeriod(long seconds){
         Log.d("DetectedService","stop for "+String.valueOf(seconds)+" seconds");
-        // TODO implement
+        long sleep_timer = TimeUnit.MILLISECONDS.toSeconds(seconds);
+        long curr_time = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+        DataHolder.getInstance().setSleepTimer(sleep_timer, curr_time);
     }
 
 
@@ -77,6 +80,7 @@ public class DetectedActivitiesIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
         Intent localIntent = new Intent(Constants.BROADCAST_ACTION);
+        long curr_time = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 
         // Get the list of the probable activities associated with the current state of the
         // device. Each activity is associated with a confidence level, which is an int between
@@ -92,9 +96,8 @@ public class DetectedActivitiesIntentService extends IntentService {
             );
         }
 
-
         handle_last_activity(result.getMostProbableActivity());
-        if (DataHolder.getInstance().getShouldAlert()) {
+        if (DataHolder.getInstance().getShouldAlert() && !DataHolder.getInstance().is_timer_on(curr_time)) {
             DataHolder.getInstance().clear_predictions();
             DataHolder.getInstance().setShouldAlert(false);
             DataHolder.getInstance().setIsVechicle(false);

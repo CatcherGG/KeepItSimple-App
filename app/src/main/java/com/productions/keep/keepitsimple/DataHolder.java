@@ -8,10 +8,12 @@ import java.util.ArrayList;
 public class DataHolder {
     private String data;
     private boolean shouldAlert = false;
-    // private ArrayList<Pair<Integer, Integer>> latest_predictions;
     private ArrayList<Integer> latest_predictions = new ArrayList<Integer>();
     private boolean is_walked = false;
     private boolean is_vechicle = false;
+
+    private long sleep_timer = -1;
+    private long timer_start_time = -1;
 
 
     public String getData() {return data;}
@@ -47,6 +49,21 @@ public class DataHolder {
         latest_predictions.clear();
     }
 
+    public void setSleepTimer(long sleepTimer, long start_time){
+        this.sleep_timer = sleepTimer;
+        this.timer_start_time = start_time;
+    }
+
+    public boolean is_timer_on(long curr_time){
+        if (timer_start_time == -1 || sleep_timer == -1 || curr_time - timer_start_time >= sleep_timer) {
+            this.sleep_timer = -1;
+            this.timer_start_time = -1;
+            return false;
+        }
+        return true;
+    }
+
     private static final DataHolder holder = new DataHolder();
     public static DataHolder getInstance() {return holder;}
+
 }
