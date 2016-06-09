@@ -41,11 +41,13 @@ public class AlarmActivity extends Activity {
     public void onStart() {
         Log.d("AlarmActivity", "start");
         super.onStart();
-        Intent mIntent = new Intent(this, DetectedActivitiesIntentService.class);
-        bindService(mIntent, mConnection, BIND_AUTO_CREATE);
-        inst = this;
-        if (mp == null || !mp.isPlaying()) {
-            startAlarm();
+        if(inst==null) {
+            Intent mIntent = new Intent(this, DetectedActivitiesIntentService.class);
+            bindService(mIntent, mConnection, BIND_AUTO_CREATE);
+            inst = this;
+            if (mp == null || !mp.isPlaying()) {
+                startAlarm();
+            }
         }
     }
 
@@ -103,6 +105,7 @@ public class AlarmActivity extends Activity {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     stopAlarm.setImageResource(R.drawable.alarm_nope_shade);
                     Log.d("AlarmActivity", "stop alarm");
+                    stopAlarm();
                     finish();
                     // Do what you want
                     return true;
@@ -270,7 +273,9 @@ public class AlarmActivity extends Activity {
         Log.d("AlarmActivity", "clicked on stop the alarm");
         try {
             alarmManager.cancel(pendingIntent);
-            mp.stop();
+            if(mp.isPlaying()) {
+                mp.stop();
+            }
             vibrator.cancel();
 
         } catch (Exception e) {
