@@ -7,6 +7,8 @@ package com.productions.keep.keepitsimple;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -14,6 +16,8 @@ import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
+
+import java.io.IOException;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
@@ -38,6 +42,34 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         if (alarmUri == null) {
             alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
+        MediaPlayer mMediaPlayer = new MediaPlayer();
+
+        try {
+            mMediaPlayer.setDataSource(context, alarmUri);
+        } catch (IllegalArgumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, maxVolume,AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+        if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+            mMediaPlayer.setLooping(false);
+            //mMediaPlayer.prepare();
+            mMediaPlayer.start();
+        }
+
         Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
         Vibrator vibrator = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
         if(!ringtone.isPlaying()) {
@@ -46,7 +78,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             vibrator.vibrate(pattern,-1);
         }
         inst.setVibrator(vibrator);
-        inst.setRingtone(ringtone);
+        inst.setMediaPlayer(mMediaPlayer);
 
         wakeLock.release();
         //this will send a notification message
