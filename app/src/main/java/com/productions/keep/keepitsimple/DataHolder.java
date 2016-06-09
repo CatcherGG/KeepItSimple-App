@@ -1,7 +1,5 @@
 package com.productions.keep.keepitsimple;
 
-import android.util.Pair;
-
 import java.util.ArrayList;
 
 /**
@@ -9,8 +7,9 @@ import java.util.ArrayList;
  */
 public class DataHolder {
     private String data;
-    private boolean shouldAlert = true;
-    private ArrayList<Pair<Integer, Integer>> latest_predictions;
+    private boolean shouldAlert = false;
+    // private ArrayList<Pair<Integer, Integer>> latest_predictions;
+    private ArrayList<Integer> latest_predictions = new ArrayList<Integer>();
     private boolean is_walked = false;
     private boolean is_vechicle = false;
 
@@ -37,14 +36,16 @@ public class DataHolder {
         this.is_vechicle = is_vechicle;
     }
 
-    public void add_prediction(Pair<Integer, Integer> type_prediction){
-        if (!(latest_predictions.size() < 5)){
+    public ArrayList<Integer> add_prediction(int type_prediction){
+        if (!(latest_predictions.size() < Constants.CACHING_SIZE)){
             latest_predictions.remove(0);
         }
         latest_predictions.add(type_prediction);
+        return latest_predictions;
     }
-
-
+    public void clear_predictions(){
+        latest_predictions.clear();
+    }
 
     private static final DataHolder holder = new DataHolder();
     public static DataHolder getInstance() {return holder;}
