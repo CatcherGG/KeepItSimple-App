@@ -27,7 +27,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.DetectedActivity;
 
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class MainActivity extends ActionBarActivity {
     protected static final String TAG = "MainActivity";
 
     protected ActivityDetectionBroadcastReceiver mBroadcastReceiver;
-    protected GoogleApiClient mGoogleApiClient;
 
     // UI elements.
     private Button mRequestActivityUpdatesButton;
@@ -96,13 +94,11 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
     }
 
     @Override

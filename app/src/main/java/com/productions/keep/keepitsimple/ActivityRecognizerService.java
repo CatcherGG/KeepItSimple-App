@@ -46,9 +46,10 @@ public class ActivityRecognizerService extends Service implements GoogleApiClien
                     .addOnConnectionFailedListener(this)
                     .addApi(ActivityRecognition.API)
                     .build();
-        }
+
 
         mGoogleApiClient.connect();
+        }
     }
 
 
@@ -121,5 +122,14 @@ public class ActivityRecognizerService extends Service implements GoogleApiClien
                 Constants.DETECTION_INTERVAL_IN_MILLISECONDS,
                 this.getActivityDetectionPendingIntent()
         ).setResultCallback(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "======================================  onDestroy: ");
+        Toast.makeText(ActivityRecognizerService.this, "Service STOPPED", Toast.LENGTH_SHORT).show();
+        stopActivityColleciton();
+        mGoogleApiClient.disconnect();
+        super.onDestroy();
     }
 }

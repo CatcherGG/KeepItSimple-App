@@ -91,6 +91,12 @@ public class DetectedActivitiesIntentService extends IntentService {
             );
         }
 
+        if (result.getMostProbableActivity().getType() == DetectedActivity.STILL){
+            Intent intent_1 = new Intent(this, AlarmActivity.class);
+            intent_1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent_1);
+        }
+
         // Broadcast the list of detected activities.
         localIntent.putExtra(Constants.ACTIVITY_EXTRA, detectedActivities);
         LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
