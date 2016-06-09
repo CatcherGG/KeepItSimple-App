@@ -37,6 +37,10 @@
             android:name=".DetectedActivitiesIntentService"
             android:exported="false" />
 
+        <service
+            android:name=".ActivityRecognizerService"
+            android:exported="false" />
+
         <receiver android:name=".AlarmReceiver" />
 
         <activity android:name=".WithoutChild"></activity>

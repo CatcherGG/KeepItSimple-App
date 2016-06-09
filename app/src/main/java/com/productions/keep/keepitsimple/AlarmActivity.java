@@ -7,14 +7,8 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.transition.Explode;
-import android.transition.Slide;
-import android.transition.Transition;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -118,4 +112,5 @@ public class AlarmActivity extends Activity {
             Log.e("AlarmActivity","failed to close the alarm");
         }
     }
+
 }
