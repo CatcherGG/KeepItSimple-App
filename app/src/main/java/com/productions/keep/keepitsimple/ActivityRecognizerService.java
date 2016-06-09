@@ -46,9 +46,7 @@ public class ActivityRecognizerService extends Service implements GoogleApiClien
                     .addOnConnectionFailedListener(this)
                     .addApi(ActivityRecognition.API)
                     .build();
-
-
-        mGoogleApiClient.connect();
+            mGoogleApiClient.connect();
         }
     }
 
