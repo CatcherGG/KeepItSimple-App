@@ -18,6 +18,8 @@ package com.productions.keep.keepitsimple;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -34,7 +36,17 @@ import java.util.ArrayList;
 public class DetectedActivitiesIntentService extends IntentService {
 
     protected static final String TAG = "DetectedActivitiesIS";
+    IBinder mBinder = new LocalBinder();
 
+    public class LocalBinder extends Binder {
+        public DetectedActivitiesIntentService getServiceInstance() {
+            return DetectedActivitiesIntentService.this;
+        }
+    }
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mBinder;
+    }
     /**
      * This constructor is required, and calls the super IntentService(String)
      * constructor with the name for a worker thread.
@@ -43,6 +55,12 @@ public class DetectedActivitiesIntentService extends IntentService {
         // Use the TAG to name the worker thread.
         super(TAG);
     }
+
+    public void stopDetectionForPeriod(long seconds){
+        Log.d("DetectedService","stop for "+String.valueOf(seconds)+" seconds");
+        // TODO implement
+    }
+
 
     @Override
     public void onCreate() {

@@ -39,7 +39,7 @@
 
         <receiver android:name=".AlarmReceiver" />
 
-        <activity android:name=".OtherActivity"></activity>
+        <activity android:name=".WithoutChild"></activity>
     </application>
 
 </manifest>
