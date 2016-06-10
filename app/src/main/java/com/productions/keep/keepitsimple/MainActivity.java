@@ -16,6 +16,7 @@
 
 package com.productions.keep.keepitsimple;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -31,7 +34,7 @@ import com.google.android.gms.location.DetectedActivity;
 
 import java.util.ArrayList;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     protected static final String TAG = "MainActivity";
 
@@ -48,41 +51,24 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
 
-        // Get the UI widgets.
-        mRequestActivityUpdatesButton = (Button) findViewById(R.id.request_activity_updates_button);
-        mRemoveActivityUpdatesButton = (Button) findViewById(R.id.remove_activity_updates_button);
-        mDetectedActivitiesListView = (ListView) findViewById(R.id.detected_activities_listview);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        setContentView(R.layout.homepage);
+
+        //setContentView(R.layout.main_activity);
+
+
+        /*
         // Get a receiver for broadcasts from ActivityDetectionIntentService.
         mBroadcastReceiver = new ActivityDetectionBroadcastReceiver();
 
-        // Enable either the Request Updates button or the Remove Updates button depending on
-        // whether activity updates have been requested.
-        setButtonsEnabledState();
-
-        // Reuse the value of mDetectedActivities from the bundle if possible. This maintains state
-        // across device orientation changes. If mDetectedActivities is not stored in the bundle,
-        // populate it with DetectedActivity objects whose confidence is set to 0. Doing this
-        // ensures that the bar graphs for only only the most recently detected activities are
-        // filled in.
-        if (savedInstanceState != null && savedInstanceState.containsKey(
-                Constants.DETECTED_ACTIVITIES)) {
-            mDetectedActivities = (ArrayList<DetectedActivity>) savedInstanceState.getSerializable(
-                    Constants.DETECTED_ACTIVITIES);
-        } else {
-            mDetectedActivities = new ArrayList<DetectedActivity>();
-
-            // Set the confidence level of each monitored activity to zero.
-            for (int i = 0; i < Constants.MONITORED_ACTIVITIES.length; i++) {
-                mDetectedActivities.add(new DetectedActivity(Constants.MONITORED_ACTIVITIES[i], 0));
-            }
-        }
 
         // Bind the adapter to the ListView responsible for display data for detected activities.
         mAdapter = new DetectedActivitiesAdapter(this, mDetectedActivities);
-        mDetectedActivitiesListView.setAdapter(mAdapter);
+        mDetectedActivitiesListView.setAdapter(mAdapter);*/
 
         startService(new Intent(this, ActivityRecognizerService.class));
         /*
