@@ -145,7 +145,7 @@ public class DetectedActivitiesIntentService extends IntentService {
     private int countVechicle(List<Integer> predictions) {
         int count = 0;
         for (int prediction_type : predictions) {
-            if (prediction_type == DetectedActivity.STILL){
+            if (prediction_type == DetectedActivity.IN_VEHICLE){
                 count++;
             }
         }
